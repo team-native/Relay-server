@@ -1,6 +1,5 @@
-package com.teamnative.relayplus.domain.auth.scheduler;
+package com.teamnative.relayplus.domain.auth.service;
 
-import com.teamnative.relayplus.domain.auth.service.EmailVerificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -1,4 +1,4 @@
-package com.teamnative.relayplus.domain.auth.validation;
+package com.teamnative.relayplus.domain.auth.service;
 
 public final class AuthPattern {
 

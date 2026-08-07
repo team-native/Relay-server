@@ -2,7 +2,7 @@ package com.teamnative.relayplus.domain.auth.dto;
 
 import com.teamnative.relayplus.domain.auth.entity.Department;
 import com.teamnative.relayplus.domain.auth.entity.Generation;
-import com.teamnative.relayplus.domain.auth.validation.AuthPattern;
+import com.teamnative.relayplus.domain.auth.service.AuthPattern;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
