@@ -29,17 +29,20 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final EmailVerificationService emailVerificationService;
 
     public AuthService(
             UserRepository userRepository,
             RefreshTokenRepository refreshTokenRepository,
             PasswordEncoder passwordEncoder,
-            JwtTokenProvider jwtTokenProvider
+            JwtTokenProvider jwtTokenProvider,
+            EmailVerificationService emailVerificationService
     ) {
         this.userRepository = userRepository;
         this.refreshTokenRepository = refreshTokenRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.emailVerificationService = emailVerificationService;
     }
 
     /**
@@ -59,6 +62,8 @@ public class AuthService {
             throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
         }
 
+        emailVerificationService.assertVerified(request.email());
+
         User user = User.builder()
                 .name(request.name())
                 .email(request.email())
@@ -68,6 +73,8 @@ public class AuthService {
                 .build();
 
         User savedUser = userRepository.save(user);
+
+        emailVerificationService.consume(request.email());
 
         return SignupResponse.from(savedUser);
     }
