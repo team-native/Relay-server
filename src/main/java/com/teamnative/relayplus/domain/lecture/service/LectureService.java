@@ -38,7 +38,6 @@ public class LectureService {
 
         Lecture lecture = Lecture.builder()
                 .title(request.title())
-                .speaker(request.speaker())
                 .lectureAt(request.lectureAt())
                 .capacity(request.capacity())
                 .description(request.description())

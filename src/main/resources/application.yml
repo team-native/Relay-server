@@ -17,10 +17,33 @@ spring:
         show_sql: true
     open-in-view: false
 
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
 jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION:3600000}            # Access Token 만료 시간 (기본 1시간)
   refresh-expiration: ${JWT_REFRESH_EXPIRATION:1209600000} # Refresh Token 만료 시간 (기본 14일)
+
+auth:
+  email-verification:
+    code-ttl-seconds: ${EMAIL_CODE_TTL_SECONDS:180}
+    resend-cooldown-seconds: ${EMAIL_CODE_RESEND_COOLDOWN_SECONDS:60}
+    verified-validity-minutes: ${EMAIL_VERIFIED_VALIDITY_MINUTES:30}
+    max-attempts: ${EMAIL_CODE_MAX_ATTEMPTS:5}
 
 cors:
   # 콤마로 구분된 프론트엔드 도메인 목록. 운영 배포 전 실제 도메인으로 교체 필요.
