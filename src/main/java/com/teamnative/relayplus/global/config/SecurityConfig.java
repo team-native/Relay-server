@@ -22,8 +22,9 @@ import java.util.List;
 /**
  * Spring Security 설정입니다.
  * - JWT를 사용하므로 세션은 STATELESS로 설정합니다.
- * - /login, /signup, /reissue는 인증 없이 접근 가능해야 합니다.
- *   (/reissue는 Access Token이 만료된 상태에서 호출되므로 permitAll 대상입니다)
+ * - /api/auth/login, /api/auth/signup, /api/auth/reissue는 인증 없이 접근 가능합니다.
+ *   (/api/auth/reissue는 Access Token이 만료된 상태에서 호출되므로 permitAll 대상)
+ * - /api/users/** 는 모두 인증이 필요합니다 (JWT Access Token 필수).
  * - 인증/인가 실패(401/403)도 다른 API와 동일한 ApiResponse 포맷으로 응답하도록
  *   JwtAuthenticationEntryPoint / JwtAccessDeniedHandler를 등록합니다.
  */
