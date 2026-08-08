@@ -1,0 +1,43 @@
+[33mcommit caa728e0e727035529add5bea336b39df7cfc5da[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev[m[33m, [m[1;31morigin/dev[m[33m)[m
+Merge: cc20dd9 dae973b
+Author: s26049 <s26049@gsm.hs.kr>
+Date:   Sat Aug 8 17:29:57 2026 +0900
+
+    Merge pull request #4 from team-native/feature/lecture
+    
+    feat: 연사 등록, 조회, 신청, 목록
+
+[33mcommit dae973b2a7cc1ad0899e3a236e538f09d9fc5d1c[m[33m ([m[1;31morigin/feature/lecture[m[33m)[m
+Merge: 5f2496b cc20dd9
+Author: s26049 <s26049@gsm.hs.kr>
+Date:   Sat Aug 8 17:29:41 2026 +0900
+
+    Merge branch 'dev' into feature/lecture
+
+[33mcommit cc20dd9bccec004803bda168d87eacd7350844a8[m
+Merge: 5754f5a 68c1f86
+Author: s26049 <s26049@gsm.hs.kr>
+Date:   Sat Aug 8 17:19:31 2026 +0900
+
+    Merge pull request #3 from team-native/feature/user
+
+[33mcommit 68c1f86c928e980d045f6b5e6e3379e79dbab0e4[m[33m ([m[1;31morigin/feature/user[m[33m)[m
+Merge: e9cbb0c 5754f5a
+Author: s26049 <s26049@gsm.hs.kr>
+Date:   Sat Aug 8 17:14:22 2026 +0900
+
+    Merge branch 'dev' into feature/user
+
+[33mcommit 5754f5a7681c270f7af505538eb08a83c4d8da49[m
+Merge: c6c3195 9f4029e
+Author: s26049 <s26049@gsm.hs.kr>
+Date:   Sat Aug 8 17:02:04 2026 +0900
+
+    Merge pull request #2 from team-native/feature/auth
+
+[33mcommit e4477988d233faaf26f64e277248332a12c2915e[m
+Merge: 9f2f496 650e333
+Author: s26049 <s26049@gsm.hs.kr>
+Date:   Fri Aug 7 21:05:41 2026 +0900
+
+    Merge pull request #1 from team-native/feature/email-verification
