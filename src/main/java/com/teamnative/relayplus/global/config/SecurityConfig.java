@@ -6,6 +6,7 @@ import com.teamnative.relayplus.global.security.JwtAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,9 +23,8 @@ import java.util.List;
 /**
  * Spring Security 설정입니다.
  * - JWT를 사용하므로 세션은 STATELESS로 설정합니다.
- * - /api/auth/login, /api/auth/signup, /api/auth/reissue는 인증 없이 접근 가능합니다.
- *   (/api/auth/reissue는 Access Token이 만료된 상태에서 호출되므로 permitAll 대상)
- * - /api/users/** 는 모두 인증이 필요합니다 (JWT Access Token 필수).
+ * - /login, /signup, /reissue는 인증 없이 접근 가능해야 합니다.
+ *   (/reissue는 Access Token이 만료된 상태에서 호출되므로 permitAll 대상입니다)
  * - 인증/인가 실패(401/403)도 다른 API와 동일한 ApiResponse 포맷으로 응답하도록
  *   JwtAuthenticationEntryPoint / JwtAccessDeniedHandler를 등록합니다.
  */
@@ -63,7 +63,14 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login", "/api/auth/signup", "/api/auth/reissue").permitAll()
+                        .requestMatchers(
+                                "/api/auth/login",
+                                "/api/auth/signup",
+                                "/api/auth/reissue",
+                                "/api/auth/email/**"
+                        ).permitAll()
+                        // 게시글 상태(개설미정/개설확정/종료) 변경은 ADMIN만 가능합니다.
+                        .requestMatchers(HttpMethod.PATCH, "/api/lectures/lecture/*/status").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception
