@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 공지사항 API
- * - GET /api/notices           : 공지사항 목록 (페이징)
- * - GET /api/notices/:noticeId : 공지사항 상세
+ * - GET /api/notice           : 공지사항 목록 (페이징)
+ * - GET /api/notice/:noticeId : 공지사항 상세
  */
 @RestController
 @RequestMapping("/api/notice")
