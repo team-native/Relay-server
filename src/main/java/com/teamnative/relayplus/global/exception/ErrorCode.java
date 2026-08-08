@@ -22,6 +22,7 @@ public enum ErrorCode {
     EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "만료된 토큰입니다."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다."),
     REFRESH_TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "만료되었거나 존재하지 않는 Refresh Token입니다. 다시 로그인해주세요."),
+    INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "현재 비밀번호가 일치하지 않습니다."),
     ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
 
     VERIFICATION_CODE_NOT_FOUND(HttpStatus.BAD_REQUEST, "인증번호를 먼저 요청해주세요."),
@@ -41,7 +42,12 @@ public enum ErrorCode {
     CLOSED_LECTURE_EMPTY(HttpStatus.NOT_FOUND, "개설 종료된 게시글이 없습니다."),
 
     // Notice
-    NOTICE_NOT_FOUND(HttpStatus.NOT_FOUND, "요청하신 리소스를 찾을 수 없습니다.");
+    NOTICE_NOT_FOUND(HttpStatus.NOT_FOUND, "요청하신 리소스를 찾을 수 없습니다."),
+
+    // Enrollment
+    ALREADY_ENROLLED(HttpStatus.CONFLICT, "이미 신청한 강의입니다."),
+    ENROLLMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "신청 정보를 찾을 수 없습니다."),
+    UNAUTHORIZED(HttpStatus.FORBIDDEN, "권한이 없습니다.");
 
     private final HttpStatus status;
     private final String message;
