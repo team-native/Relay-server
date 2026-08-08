@@ -32,7 +32,14 @@ public enum ErrorCode {
     VERIFICATION_RESEND_TOO_SOON(HttpStatus.TOO_MANY_REQUESTS, "인증번호를 다시 요청하려면 잠시 기다려주세요."),
     EMAIL_NOT_VERIFIED(HttpStatus.BAD_REQUEST, "학교 이메일 인증을 먼저 완료해주세요."),
     EMAIL_VERIFICATION_EXPIRED(HttpStatus.BAD_REQUEST, "이메일 인증이 만료되었습니다. 다시 인증해주세요."),
-    MAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "인증 메일 발송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+    MAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "인증 메일 발송에 실패했습니다. 잠시 후 다시 시도해주세요."),
+
+    // Lecture (기능명세서 - 메인페이지/개설미정/개설확정/종료/강의상세/릴레이 스터디 등록)
+    LECTURE_NOT_FOUND(HttpStatus.NOT_FOUND, "게시글이 없습니다."),
+    LECTURE_SEARCH_RESULT_EMPTY(HttpStatus.NOT_FOUND, "검색 결과가 없습니다."),
+    PENDING_LECTURE_EMPTY(HttpStatus.NOT_FOUND, "개설 미정 게시글이 없습니다."),
+    CONFIRMED_LECTURE_EMPTY(HttpStatus.NOT_FOUND, "개설 확정된 게시글이 없습니다."),
+    CLOSED_LECTURE_EMPTY(HttpStatus.NOT_FOUND, "개설 종료된 게시글이 없습니다.");
 
     private final HttpStatus status;
     private final String message;
