@@ -23,7 +23,16 @@ public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다."),
     REFRESH_TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "만료되었거나 존재하지 않는 Refresh Token입니다. 다시 로그인해주세요."),
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "현재 비밀번호가 일치하지 않습니다."),
-    ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근 권한이 없습니다.");
+    ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
+
+    VERIFICATION_CODE_NOT_FOUND(HttpStatus.BAD_REQUEST, "인증번호를 먼저 요청해주세요."),
+    VERIFICATION_CODE_EXPIRED(HttpStatus.BAD_REQUEST, "인증 시간이 만료되었습니다. 재발송 버튼을 눌러주세요."),
+    VERIFICATION_CODE_MISMATCH(HttpStatus.BAD_REQUEST, "인증번호가 일치하지 않습니다."),
+    VERIFICATION_ATTEMPT_EXCEEDED(HttpStatus.TOO_MANY_REQUESTS, "인증 시도 횟수를 초과했습니다. 인증번호를 다시 요청해주세요."),
+    VERIFICATION_RESEND_TOO_SOON(HttpStatus.TOO_MANY_REQUESTS, "인증번호를 다시 요청하려면 잠시 기다려주세요."),
+    EMAIL_NOT_VERIFIED(HttpStatus.BAD_REQUEST, "학교 이메일 인증을 먼저 완료해주세요."),
+    EMAIL_VERIFICATION_EXPIRED(HttpStatus.BAD_REQUEST, "이메일 인증이 만료되었습니다. 다시 인증해주세요."),
+    MAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "인증 메일 발송에 실패했습니다. 잠시 후 다시 시도해주세요.");
 
     private final HttpStatus status;
     private final String message;
