@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:relayplus;MODE=MySQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: false
+        show_sql: false
+    open-in-view: false
+
+  mail:
+    host: localhost
+    port: 3025
+    username: test@relayplus.com
+    password: test
+
+jwt:
+  secret: relayplus-integration-test-secret-key-must-be-at-least-256-bits-long
+  expiration: 3600000
+  refresh-expiration: 1209600000
+
+auth:
+  email-verification:
+    code-ttl-seconds: 180
+    resend-cooldown-seconds: 60
+    verified-validity-minutes: 30
+    max-attempts: 5
+
+cors:
+  allowed-origins: http://localhost:3000
