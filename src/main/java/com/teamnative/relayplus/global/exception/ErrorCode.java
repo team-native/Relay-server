@@ -38,7 +38,10 @@ public enum ErrorCode {
     LECTURE_SEARCH_RESULT_EMPTY(HttpStatus.NOT_FOUND, "검색 결과가 없습니다."),
     PENDING_LECTURE_EMPTY(HttpStatus.NOT_FOUND, "개설 미정 게시글이 없습니다."),
     CONFIRMED_LECTURE_EMPTY(HttpStatus.NOT_FOUND, "개설 확정된 게시글이 없습니다."),
-    CLOSED_LECTURE_EMPTY(HttpStatus.NOT_FOUND, "개설 종료된 게시글이 없습니다.");
+    CLOSED_LECTURE_EMPTY(HttpStatus.NOT_FOUND, "개설 종료된 게시글이 없습니다."),
+
+    // Notice
+    NOTICE_NOT_FOUND(HttpStatus.NOT_FOUND, "요청하신 리소스를 찾을 수 없습니다.");
 
     private final HttpStatus status;
     private final String message;
