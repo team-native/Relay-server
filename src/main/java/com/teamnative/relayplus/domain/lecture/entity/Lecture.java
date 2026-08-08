@@ -29,9 +29,6 @@ public class Lecture {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(nullable = false, length = 30)
-    private String speaker;
-
     // 연사 날짜 + 시간
     @Column(nullable = false)
     private LocalDateTime lectureAt;
@@ -47,7 +44,6 @@ public class Lecture {
     @Column(nullable = false, length = 20)
     private LectureStatus status;
 
-    // 게시글 작성자 (릴레이 스터디를 등록한 사용자)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false, updatable = false)
     private User author;
@@ -58,10 +54,9 @@ public class Lecture {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Lecture(String title, String speaker, LocalDateTime lectureAt, Integer capacity,
+    public Lecture(String title, LocalDateTime lectureAt, Integer capacity,
                    String description, User author) {
         this.title = title;
-        this.speaker = speaker;
         this.lectureAt = lectureAt;
         this.capacity = capacity;
         this.description = description;

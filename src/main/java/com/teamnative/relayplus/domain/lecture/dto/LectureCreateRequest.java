@@ -10,17 +10,13 @@ import java.time.LocalDateTime;
 
 /**
  * 릴레이 스터디 등록 요청 DTO
- * 기능명세서: 연사 제목, 날짜, 시간, 연사자, 모집 인원, 연사 소개
+ * 연사자는 별도 입력 없이 등록한 로그인 사용자(author)로 자동 설정됩니다.
  */
 public record LectureCreateRequest(
 
         @NotBlank(message = "연사 제목을 입력해주세요.")
         @Size(max = 100, message = "제목은 100자를 초과할 수 없습니다.")
         String title,
-
-        @NotBlank(message = "연사자를 입력해주세요.")
-        @Size(max = 30, message = "연사자 이름은 30자를 초과할 수 없습니다.")
-        String speaker,
 
         @NotNull(message = "연사 날짜와 시간을 입력해주세요.")
         @Future(message = "연사 날짜와 시간은 현재보다 이후여야 합니다.")
