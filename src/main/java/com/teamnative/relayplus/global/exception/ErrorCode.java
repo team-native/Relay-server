@@ -42,7 +42,12 @@ public enum ErrorCode {
     CLOSED_LECTURE_EMPTY(HttpStatus.NOT_FOUND, "개설 종료된 게시글이 없습니다."),
 
     // Notice
-    NOTICE_NOT_FOUND(HttpStatus.NOT_FOUND, "요청하신 리소스를 찾을 수 없습니다.");
+    NOTICE_NOT_FOUND(HttpStatus.NOT_FOUND, "요청하신 리소스를 찾을 수 없습니다."),
+
+    // Enrollment
+    ALREADY_ENROLLED(HttpStatus.CONFLICT, "이미 신청한 강의입니다."),
+    ENROLLMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "신청 정보를 찾을 수 없습니다."),
+    UNAUTHORIZED(HttpStatus.FORBIDDEN, "권한이 없습니다.");
 
     private final HttpStatus status;
     private final String message;
