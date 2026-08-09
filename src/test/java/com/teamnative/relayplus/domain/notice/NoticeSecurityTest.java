@@ -55,4 +55,25 @@ class NoticeSecurityTest {
                 .andExpect(jsonPath("$.title").value("Notice title"))
                 .andExpect(jsonPath("$.content").value("Notice content"));
     }
+
+    @Test
+    @DisplayName("Notice list is public even with an invalid Authorization header")
+    void noticeListIsPublicWithInvalidAuthorizationHeader() throws Exception {
+        mockMvc.perform(get("/api/notice")
+                        .header("Authorization", "Bearer invalid-token"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.notices[0].id").value(notice.getId()))
+                .andExpect(jsonPath("$.notices[0].title").value("Notice title"));
+    }
+
+    @Test
+    @DisplayName("Notice detail is public even with an invalid Authorization header")
+    void noticeDetailIsPublicWithInvalidAuthorizationHeader() throws Exception {
+        mockMvc.perform(get("/api/notice/{noticeId}", notice.getId())
+                        .header("Authorization", "Bearer invalid-token"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(notice.getId()))
+                .andExpect(jsonPath("$.title").value("Notice title"))
+                .andExpect(jsonPath("$.content").value("Notice content"));
+    }
 }

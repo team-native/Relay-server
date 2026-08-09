@@ -10,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -40,11 +42,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String PREFIX = "Bearer ";
     private static final String DEFAULT_ROLE = "USER";
     private static final String ROLE_PREFIX = "ROLE_";
+    private static final List<RequestMatcher> PUBLIC_REQUEST_MATCHERS = List.of(
+            new AntPathRequestMatcher("/api/auth/login"),
+            new AntPathRequestMatcher("/api/auth/signup"),
+            new AntPathRequestMatcher("/api/auth/reissue"),
+            new AntPathRequestMatcher("/api/auth/email/**"),
+            new AntPathRequestMatcher("/health"),
+            new AntPathRequestMatcher("/api/notice", "GET"),
+            new AntPathRequestMatcher("/api/notice/", "GET"),
+            new AntPathRequestMatcher("/api/notice/**", "GET"),
+            new AntPathRequestMatcher("/**", "OPTIONS")
+    );
 
     private final JwtTokenProvider jwtTokenProvider;
 
     public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @Override
+    protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
+        return PUBLIC_REQUEST_MATCHERS.stream()
+                .anyMatch(matcher -> matcher.matches(request));
     }
 
     @Override
