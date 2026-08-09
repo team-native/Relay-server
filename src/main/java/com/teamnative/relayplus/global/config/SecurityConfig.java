@@ -71,6 +71,7 @@ public class SecurityConfig {
                                 "/health"
                         ).permitAll()
                         // 게시글 상태(개설미정/개설확정/종료) 변경은 ADMIN만 가능합니다.
+                        .requestMatchers(HttpMethod.GET, "/api/notice", "/api/notice/*").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/api/lectures/lecture/*/status").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
