@@ -19,9 +19,13 @@ public record LectureCreateRequest(
         @Size(max = 100, message = "제목은 100자를 초과할 수 없습니다.")
         String title,
 
+        @NotBlank(message = "연사자를 입력해주세요.")
+        @Size(max = 100, message = "연사자는 100자를 초과할 수 없습니다.")
+        String presenter,
+
         @NotNull(message = "연사 날짜와 시간을 입력해주세요.")
         @Future(message = "연사 날짜와 시간은 현재보다 이후여야 합니다.")
-        LocalDateTime lectureAt,
+        LocalDateTime scheduledAt,
 
         @NotNull(message = "모집 인원을 입력해주세요.")
         @Positive(message = "모집 인원은 1명 이상이어야 합니다.")

@@ -29,9 +29,12 @@ public class Lecture {
     @Column(nullable = false, length = 100)
     private String title;
 
+    @Column(nullable = false, length = 100)
+    private String presenter;
+
     // 연사 날짜 + 시간
     @Column(nullable = false)
-    private LocalDateTime lectureAt;
+    private LocalDateTime scheduledAt;
 
     @Column(nullable = false)
     private Integer capacity;
@@ -54,10 +57,11 @@ public class Lecture {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Lecture(String title, LocalDateTime lectureAt, Integer capacity,
+    public Lecture(String title, String presenter, LocalDateTime scheduledAt, Integer capacity,
                    String description, User author) {
         this.title = title;
-        this.lectureAt = lectureAt;
+        this.presenter = presenter;
+        this.scheduledAt = scheduledAt;
         this.capacity = capacity;
         this.description = description;
         this.author = author;

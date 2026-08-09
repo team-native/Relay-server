@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 
 /**
  * 메인페이지 / 상태별 목록 조회용 응답 DTO (목록에서는 연사 소개까지는 노출하지 않습니다)
- * speaker는 별도 컬럼이 아니라 등록자(author)의 이름을 그대로 내려줍니다.
+ * presenter는 등록 요청에서 입력한 연사자 이름을 내려줍니다.
  */
 public record LectureSummaryResponse(
         Long id,
         String title,
-        String speaker,
-        LocalDateTime lectureAt,
+        String presenter,
+        LocalDateTime scheduledAt,
         Integer capacity,
         LectureStatus status
 ) {
@@ -21,8 +21,8 @@ public record LectureSummaryResponse(
         return new LectureSummaryResponse(
                 lecture.getId(),
                 lecture.getTitle(),
-                lecture.getAuthor().getName(),
-                lecture.getLectureAt(),
+                lecture.getPresenter(),
+                lecture.getScheduledAt(),
                 lecture.getCapacity(),
                 lecture.getStatus()
         );
