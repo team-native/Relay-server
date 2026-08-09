@@ -17,6 +17,10 @@ public record UserResponse(
         Department department,
         List<LectureSummaryResponse> enrolledLectures
 ) {
+    public UserResponse {
+        enrolledLectures = enrolledLectures == null ? List.of() : enrolledLectures;
+    }
+
     public static UserResponse from(UserProfileEntity user) {
         return new UserResponse(
                 user.getUserId(),
