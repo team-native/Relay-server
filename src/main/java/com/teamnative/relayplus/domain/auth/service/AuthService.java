@@ -130,6 +130,11 @@ public class AuthService {
             RefreshToken savedToken = refreshTokenRepository.findById(email)
                     .orElseThrow(() -> new CustomException(ErrorCode.REFRESH_TOKEN_NOT_FOUND));
 
+            if (savedToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+                refreshTokenRepository.deleteById(email);
+                throw new CustomException(ErrorCode.EXPIRED_TOKEN);
+            }
+
             // 클라이언트가 보낸 토큰이 DB에 저장된 최신 토큰과 다르면
             // 이미 사용된(탈취되었을 수 있는) 토큰이므로 즉시 폐기하고 재로그인을 요구합니다.
             // DB에는 원문이 아닌 SHA-256 해시만 저장되어 있으므로, 들어온 토큰도 동일하게 해시해 비교합니다.

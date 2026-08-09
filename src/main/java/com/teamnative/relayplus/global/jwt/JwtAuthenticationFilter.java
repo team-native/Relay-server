@@ -57,17 +57,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = resolveToken(request);
 
         if (token != null) {
-            JwtTokenProvider.TokenStatus status = jwtTokenProvider.validate(token);
+            try {
+                JwtTokenProvider.TokenStatus status = jwtTokenProvider.validate(token);
 
-            if (status == JwtTokenProvider.TokenStatus.VALID && !jwtTokenProvider.isRefreshToken(token)) {
-                authenticate(request, token);
-            } else {
-                // Refresh Token이 이 자리에 잘못 쓰인 경우도 만료가 아닌 "유효하지 않음"으로 취급합니다.
-                boolean expired = status == JwtTokenProvider.TokenStatus.EXPIRED;
-                request.setAttribute(
-                        TOKEN_STATUS_ATTRIBUTE,
-                        expired ? JwtTokenProvider.TokenStatus.EXPIRED : JwtTokenProvider.TokenStatus.INVALID
-                );
+                if (status == JwtTokenProvider.TokenStatus.VALID && !jwtTokenProvider.isRefreshToken(token)) {
+                    authenticate(request, token);
+                } else {
+                    // Refresh Token이 이 자리에 잘못 쓰인 경우도 만료가 아닌 "유효하지 않음"으로 취급합니다.
+                    boolean expired = status == JwtTokenProvider.TokenStatus.EXPIRED;
+                    request.setAttribute(
+                            TOKEN_STATUS_ATTRIBUTE,
+                            expired ? JwtTokenProvider.TokenStatus.EXPIRED : JwtTokenProvider.TokenStatus.INVALID
+                    );
+                }
+            } catch (JwtException | IllegalArgumentException e) {
+                SecurityContextHolder.clearContext();
+                request.setAttribute(TOKEN_STATUS_ATTRIBUTE, JwtTokenProvider.TokenStatus.INVALID);
             }
         }
 
