@@ -66,10 +66,6 @@ public class LectureService {
             lectures = lectureRepository.findAllByOrderByCreatedAtDesc();
         }
 
-        if (lectures.isEmpty()) {
-            throw new CustomException(resolveEmptyErrorCode(status, hasKeyword));
-        }
-
         return lectures.stream()
                 .map(LectureSummaryResponse::from)
                 .toList();
@@ -92,18 +88,4 @@ public class LectureService {
         return LectureDetailResponse.from(lecture);
     }
 
-    private ErrorCode resolveEmptyErrorCode(LectureStatus status, boolean hasKeyword) {
-        // 검색어가 있었다면 상태 필터 여부와 무관하게 "검색 결과가 없습니다"가 우선합니다.
-        if (hasKeyword) {
-            return ErrorCode.LECTURE_SEARCH_RESULT_EMPTY;
-        }
-        if (status == null) {
-            return ErrorCode.LECTURE_NOT_FOUND;
-        }
-        return switch (status) {
-            case PENDING -> ErrorCode.PENDING_LECTURE_EMPTY;
-            case CONFIRMED -> ErrorCode.CONFIRMED_LECTURE_EMPTY;
-            case CLOSED -> ErrorCode.CLOSED_LECTURE_EMPTY;
-        };
-    }
 }
