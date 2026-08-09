@@ -67,7 +67,8 @@ public class SecurityConfig {
                                 "/api/auth/login",
                                 "/api/auth/signup",
                                 "/api/auth/reissue",
-                                "/api/auth/email/**"
+                                "/api/auth/email/**",
+                                "/health"
                         ).permitAll()
                         // 게시글 상태(개설미정/개설확정/종료) 변경은 ADMIN만 가능합니다.
                         .requestMatchers(HttpMethod.PATCH, "/api/lectures/lecture/*/status").hasRole("ADMIN")
