@@ -65,10 +65,7 @@ public class UserService {
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         // 사용자가 신청한 강의 목록 조회
-        List<LectureSummaryResponse> enrolledLectures = enrollmentRepository.findByUserId(userId)
-                .stream()
-                .map(enrollment -> LectureSummaryResponse.from(enrollment.getLecture()))
-                .toList();
+        List<LectureSummaryResponse> enrolledLectures = getEnrolledLectures(userId);
 
         return UserResponse.from(user, enrolledLectures);
     }
@@ -86,12 +83,24 @@ public class UserService {
         userRepository.save(user);
 
         // 프로필 수정 후 내가 들은 강의 목록도 함께 반환
-        List<LectureSummaryResponse> enrolledLectures = enrollmentRepository.findByUserId(userId)
-                .stream()
-                .map(enrollment -> LectureSummaryResponse.from(enrollment.getLecture()))
-                .toList();
+        List<LectureSummaryResponse> enrolledLectures = getEnrolledLectures(userId);
 
         return UserResponse.from(user, enrolledLectures);
+    }
+
+    /**
+     * 사용자가 신청한 강의 목록을 신청 인원 수와 함께 조회합니다.
+     * 마이페이지에 노출되는 목록이므로 enrolled는 항상 true입니다.
+     */
+    private List<LectureSummaryResponse> getEnrolledLectures(Long userId) {
+        return enrollmentRepository.findByUserId(userId)
+                .stream()
+                .map(enrollment -> LectureSummaryResponse.from(
+                        enrollment.getLecture(),
+                        enrollmentRepository.countByLectureId(enrollment.getLecture().getId()),
+                        true
+                ))
+                .toList();
     }
 
     /**
