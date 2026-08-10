@@ -33,7 +33,7 @@ public class LectureController {
         this.lectureService = lectureService;
     }
 
-    @GetMapping("/lecture")
+    @GetMapping("/home")
     public ResponseEntity<ApiResponse<List<LectureSummaryResponse>>> getList(
             @RequestParam(required = false) LectureStatus status,
             @RequestParam(required = false) String keyword
