@@ -67,4 +67,10 @@ public class LectureController {
         LectureDetailResponse response = lectureService.updateStatus(id, request.status());
         return ResponseEntity.ok(ApiResponse.success("게시글 상태가 변경되었습니다.", response));
     }
+
+    @DeleteMapping("/lecture/{id}")
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+        lectureService.delete(id);
+        return ResponseEntity.ok(ApiResponse.success("게시글이 삭제되었습니다.", null));
+    }
 }

@@ -26,4 +26,6 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
      * 특정 강의의 신청 인원 수 조회
      */
     long countByLectureId(Long lectureId);
+
+    void deleteByLectureId(Long lectureId);
 }
