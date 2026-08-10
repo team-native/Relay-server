@@ -1,5 +1,6 @@
 package com.teamnative.relayplus.domain.notice.service;
 
+import com.teamnative.relayplus.domain.notice.dto.NoticeCreateRequest;
 import com.teamnative.relayplus.domain.notice.dto.NoticeListResponse;
 import com.teamnative.relayplus.domain.notice.dto.NoticeResponse;
 import com.teamnative.relayplus.domain.notice.entity.Notice;
@@ -40,5 +41,15 @@ public class NoticeService {
         Notice notice = noticeRepository.findById(noticeId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOTICE_NOT_FOUND));
         return NoticeResponse.from(notice);
+    }
+    @Transactional
+    public NoticeResponse create(NoticeCreateRequest request) {
+        Notice notice = Notice.builder()
+                .title(request.title())
+                .content(request.content())
+                .build();
+
+        Notice saved = noticeRepository.save(notice);
+        return NoticeResponse.from(saved);
     }
 }

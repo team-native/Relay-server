@@ -1,11 +1,14 @@
 package com.teamnative.relayplus.domain.notice.controller;
 
+import com.teamnative.relayplus.domain.notice.dto.NoticeCreateRequest;
 import com.teamnative.relayplus.domain.notice.dto.NoticeListResponse;
 import com.teamnative.relayplus.domain.notice.dto.NoticeResponse;
 import com.teamnative.relayplus.domain.notice.service.NoticeService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,5 +51,13 @@ public class NoticeController {
     ) {
         NoticeResponse response = noticeService.getNotice(noticeId);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<NoticeResponse> createNotice(
+            @Valid @RequestBody NoticeCreateRequest request
+    ) {
+        NoticeResponse response = noticeService.create(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
