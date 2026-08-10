@@ -33,7 +33,7 @@ public class Lecture {
     private String presenter;
 
     // 연사 날짜 + 시간
-    @Column(nullable = false)
+    @Column(name = "scheduled_at", nullable = false)
     private LocalDateTime scheduledAt;
 
     @Column(nullable = false)
@@ -51,9 +51,10 @@ public class Lecture {
     @JoinColumn(name = "author_id", nullable = false, updatable = false)
     private User author;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Builder
