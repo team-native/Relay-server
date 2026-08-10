@@ -37,7 +37,6 @@ public class SecurityConfig {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     // 프론트엔드 배포 도메인을 application.yml(cors.allowed-origins)에서 주입받습니다.
-    // 로컬 개발 기본값만 넣어뒀으니, 운영 배포 전에 반드시 실제 도메인으로 교체하세요.
     @Value("${cors.allowed-origins:http://localhost:3000}")
     private List<String> allowedOrigins;
 
@@ -74,6 +73,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/notice", "/api/notice/", "/api/notice/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/api/lectures/lecture/*/status").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/notice/new").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/lectures/lecture/*").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception

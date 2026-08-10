@@ -2,6 +2,7 @@ package com.teamnative.relayplus.domain.lecture.service;
 
 import com.teamnative.relayplus.domain.auth.entity.User;
 import com.teamnative.relayplus.domain.auth.repository.UserRepository;
+import com.teamnative.relayplus.domain.enrollment.repository.EnrollmentRepository;
 import com.teamnative.relayplus.domain.lecture.dto.LectureCreateRequest;
 import com.teamnative.relayplus.domain.lecture.dto.LectureDetailResponse;
 import com.teamnative.relayplus.domain.lecture.dto.LectureSummaryResponse;
@@ -21,10 +22,13 @@ public class LectureService {
 
     private final LectureRepository lectureRepository;
     private final UserRepository userRepository;
+    private final EnrollmentRepository enrollmentRepository;
 
-    public LectureService(LectureRepository lectureRepository, UserRepository userRepository) {
+    public LectureService(LectureRepository lectureRepository, UserRepository userRepository,
+                          EnrollmentRepository enrollmentRepository) {
         this.lectureRepository = lectureRepository;
         this.userRepository = userRepository;
+        this.enrollmentRepository = enrollmentRepository;
     }
 
     /**
@@ -89,4 +93,11 @@ public class LectureService {
         return LectureDetailResponse.from(lecture);
     }
 
+    @Transactional
+    public void delete(Long id) {
+        Lecture lecture = lectureRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ErrorCode.LECTURE_NOT_FOUND));
+        enrollmentRepository.deleteByLectureId(id);
+        lectureRepository.delete(lecture);
+    }
 }
