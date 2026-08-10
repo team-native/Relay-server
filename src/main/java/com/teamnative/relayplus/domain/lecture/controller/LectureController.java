@@ -36,15 +36,19 @@ public class LectureController {
     @GetMapping("/home")
     public ResponseEntity<ApiResponse<List<LectureSummaryResponse>>> getList(
             @RequestParam(required = false) LectureStatus status,
-            @RequestParam(required = false) String keyword
+            @RequestParam(required = false) String keyword,
+            Authentication authentication
     ) {
-        List<LectureSummaryResponse> response = lectureService.getList(status, keyword);
+        List<LectureSummaryResponse> response = lectureService.getList(status, keyword, authentication.getName());
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @GetMapping("/lecture/{id}")
-    public ResponseEntity<ApiResponse<LectureDetailResponse>> getDetail(@PathVariable Long id) {
-        LectureDetailResponse response = lectureService.getDetail(id);
+    public ResponseEntity<ApiResponse<LectureDetailResponse>> getDetail(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        LectureDetailResponse response = lectureService.getDetail(id, authentication.getName());
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
